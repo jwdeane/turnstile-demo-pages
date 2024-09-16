@@ -1,4 +1,6 @@
 .DS_Store
+.wrangler
+.dev.*
 /node_modules
 *-lock.*
 *.lock
