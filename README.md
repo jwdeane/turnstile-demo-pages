@@ -1,34 +1,41 @@
-# Turnstile Demo: Workers
+# Turnstile Demo: Pages
 
-A simple demo with a Turnstile-protected form, using Cloudflare Workers.
+A simple demo with a Turnstile-protected form, using Cloudflare Pages.
 
-With the code in this repository, we demonstrate [implicit rendering] and [explicit rendering].
+With the code in this repository, we demonstrate [implicit rendering](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#implicitly-render-the-turnstile-widget) and [explicit rendering](https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#explicitly-render-the-turnstile-widget).
 
 ## Setup
 
 ```sh
-$ npm install
-up to date, audited 103 packages in 585ms
+npm install
+```
 
-11 packages are looking for funding
-  run `npm fund` for details
+Obtain your Turnstile Secret Key from the [dashboard](https://dash.cloudflare.com/?to=/:account/turnstile) and add to a `.dev.vars` file in your project root:
 
-found 0 vulnerabilities
+```sh
+SECRET_KEY=abc123-change-me
 ```
 
 ## Local testing
 
+Start a local development server:
+
 ```sh
+# wrangler pages dev OR
 npm run dev
 
-> dev
-> wrangler dev index.mjs --local
-
- ⛅️ wrangler 2.1.7
+ ⛅️ wrangler 3.78.2
 -------------------
-⎔ Starting a local server...
+
+✨ Compiled Worker successfully
+Using vars defined in .dev.vars
+Your worker has access to the following bindings:
+- Vars:
+  - SECRET_KEY: "(hidden)"
+⎔ Starting local server...
+[wrangler:inf] Ready on http://localhost:8788
 ╭───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ [b] open a browser, [d] open Devtools, [l] turn off local mode, [c] clear console, [x] to exit                                                                                │
+│ [b] open a browser, [d] open Devtools, [c] clear console, [x] to exit                                                                                                         │
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
@@ -36,20 +43,19 @@ Then press `b` to open the demo page in your browser.
 
 ## Deploy
 
+Deploy via Wrangler:
+
 ```sh
-$ npm run deploy
-
-> deploy
-> wrangler publish index.mjs
-
- ⛅️ wrangler 2.1.7
--------------------
-Total Upload: 2.94 KiB / gzip: 1.33 KiB
-Uploaded turnstile-demo-workers (2.07 sec)
-Published turnstile-demo-workers (1.66 sec)
-  https://turnstile-demo-workers....workers.dev
-
+# wrangler pages deploy OR
+npm run deploy
 ```
 
-[implicit rendering]: https://demo.turnstile.workers.dev/
-[explicit rendering]: https://demo.turnstile.workers.dev/explicit
+Alternatively connect Cloudflare Pages to your git repository.
+
+### IMPORTANT
+
+⚠️ you **must** set the SECRET_KEY environment variable within your Pages project for the Turnstile verification to succeed.
+
+```sh
+wrangler pages secret put SECRET_KEY
+```
