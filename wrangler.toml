@@ -1,4 +1,4 @@
-name = "turnstile-demo-workers"
-workers_dev = true
+name = "turnstile-demo-pages"
+compatibility_date = "2024-09-15"
 
-compatibility_date = "2022-09-26"
+pages_build_output_dir = "./"
