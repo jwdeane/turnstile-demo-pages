@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Turnstile Pre-Clearance Demo</title>
+  </head>
+  <body>
+    <main class="pre-clearance-demo">
+      <h2>Pre-clearance Demo</h2>
+      <button id="fetchBtn">Fetch Data</button>
+      <div id="response"></div>
+    </main>
+
+    <script>
+      const button = document.getElementById("fetchBtn");
+      const responseDiv = document.getElementById("response");
+      button.addEventListener("click", async () => {
+        try {
+          let result = await fetch("/ip");
+          if (result.ok) {
+            let data = await result.json();
+            responseDiv.textContent = JSON.stringify(data);
+          } else {
+            responseDiv.textContent = "Error fetching data";
+          }
+        } catch (error) {
+          responseDiv.textContent = "Network error";
+        }
+      });
+    </script>
+  </body>
+</html>
